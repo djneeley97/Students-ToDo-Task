@@ -13,7 +13,7 @@ struct GroupStatsView: View {
     var progress: Double {
         tasks.isEmpty ? 0 : Double(completedCount) / Double(tasks.count)
     }
-
+    
     var body: some View {
         HStack {
             ZStack{
