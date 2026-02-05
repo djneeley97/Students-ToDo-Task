@@ -8,10 +8,15 @@
 import SwiftUI
 
 @main
-struct ToDo_TaskApp: App {
+struct ToDoApp: App {
+
+    @AppStorage("appLanguage") private var appLanguage: AppLanguage = .english
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardView()
+                .environment(\.locale, appLanguage.locale)
         }
     }
 }
+
