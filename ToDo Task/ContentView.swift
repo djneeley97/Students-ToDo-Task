@@ -61,7 +61,7 @@ struct ContentView: View {
                             .background(
                                 Circle().fill(Color(.systemBackground))
                             )
-                            .shadow(radius: 2)
+                            .shadow(radius: 4)
                     }
                     .padding(.leading, 0)
                     .padding(.bottom, 12)
