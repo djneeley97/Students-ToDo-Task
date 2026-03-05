@@ -18,11 +18,4 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_16.0.app
 
       - name: Build for Simulator
-        run: |
-          xcodebuild build \
-            -scheme "ToDo Task" \
-            -destination 'generic/platform=iOS Simulator' \
-            -quiet \
-            IPHONEOS_DEPLOYMENT_TARGET=18.0 \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO
+        run: xcodebuild build -project "ToDo Task.xcodeproj" -scheme "ToDo Task" -destination 'generic/platform=iOS Simulator' -quiet IPHONEOS_DEPLOYMENT_TARGET=18.0 CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
