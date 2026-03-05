@@ -5,7 +5,7 @@ name: iOS App Validation
 
 on:
   push:
-    branches: [ "main", "develope" ]
+    branches: [ "main", "develop" ]
   pull_request:
     branches: [ "main" ]
 
