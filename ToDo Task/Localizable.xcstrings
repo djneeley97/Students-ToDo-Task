@@ -123,7 +123,16 @@
         }
       }
     },
+    "High" : {
+
+    },
     "Home" : {
+
+    },
+    "Low" : {
+
+    },
+    "Medium" : {
 
     },
     "New Group" : {
@@ -147,6 +156,9 @@
           }
         }
       }
+    },
+    "Priority" : {
+
     },
     "Save" : {
       "localizations" : {

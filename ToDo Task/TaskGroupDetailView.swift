@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-
 struct TaskGroupDetailView: View {
     @Binding var groups: TaskGroup
     @Environment(\.horizontalSizeClass) var sizeClass
-    
+    @State private var tempPriority: Priority = .medium
+
     var body: some View {
         List {
             Section {
@@ -21,43 +21,45 @@ struct TaskGroupDetailView: View {
                         .listRowBackground(Color(.secondarySystemBackground))
                 }
             }
-            
+
             ForEach($groups.tasks) { $task in
-                HStack {
-                    Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
-                        .foregroundStyle(task.isCompleted ? .cyan : .gray)
-                        .onTapGesture {
-                            withAnimation {
-                                task.isCompleted.toggle()
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
+                            .foregroundStyle(task.isCompleted ? .cyan : .gray)
+                            .onTapGesture {
+                                withAnimation {
+                                    task.isCompleted.toggle()
+                                }
                             }
-                        }
-                        
-                    
-                    TextField("Task Title", text: $task.title)
-                        .strikethrough(task.isCompleted)
-                        .accessibilityIdentifier("TaskTextField_\(task.id)")
-                }
-                
-                HStack {
-                    DatePicker("Goal Date", selection: $task.dueDate, displayedComponents: .date)
-                        .labelsHidden()
-                        .scaleEffect()
-                        .accessibilityIdentifier("TaskDatePicker")
-                    
-                    Text("Due: \(task.dueDate.formatted(date: .abbreviated, time: .omitted))")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .accessibilityIdentifier("TaskDateLabel")
-                }
-                .padding(.leading, 12)
-                
-                Picker("Priority", selection: $task.priority) {
-                    Text("Low").tag(Priority.low)
-                    Text("Medium").tag(Priority.medium)
-                    Text("High").tag(Priority.high)
-                }
-                .accessibilityIdentifier("PriorityPicker")
-                    
+
+                        TextField("Task Title", text: $task.title)
+                            .strikethrough(task.isCompleted)
+                            .accessibilityIdentifier("TaskTextField_\(task.id)")
+                    }
+
+                    HStack {
+                        DatePicker("Goal Date", selection: $task.dueDate, displayedComponents: .date)
+                            .labelsHidden()
+                            .scaleEffect()
+                            .accessibilityIdentifier("TaskDatePicker")
+
+                        Text("Due: \(task.dueDate.formatted(date: .abbreviated, time: .omitted))")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .accessibilityIdentifier("TaskDateLabel")
+                    }
+                    .padding(.leading, 12)
+
+                    Picker("Priority", selection: Binding<Priority>(
+                        get: { tempPriority },
+                        set: { newValue in tempPriority = newValue }
+                    )) {
+                        Text("Low").tag(Priority.low)
+                        Text("Medium").tag(Priority.medium)
+                        Text("High").tag(Priority.high)
+                    }
+                    .accessibilityIdentifier("PriorityPicker")
                 }
             }
             .onDelete { index in
@@ -73,4 +75,5 @@ struct TaskGroupDetailView: View {
             }
         }
     }
+}
 
