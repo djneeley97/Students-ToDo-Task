@@ -95,6 +95,12 @@
         }
       }
     },
+    "Due: %@" : {
+
+    },
+    "Goal Date" : {
+
+    },
     "Group Name" : {
       "localizations" : {
         "es" : {

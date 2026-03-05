@@ -14,7 +14,6 @@ struct TaskGroupDetailView: View {
     
     var body: some View {
         List {
-            
             Section {
                 if sizeClass == .regular {
                     GroupStatsView(tasks: groups.tasks)
@@ -32,8 +31,33 @@ struct TaskGroupDetailView: View {
                                 task.isCompleted.toggle()
                             }
                         }
+                        
+                    
                     TextField("Task Title", text: $task.title)
                         .strikethrough(task.isCompleted)
+                        .accessibilityIdentifier("TaskTextField_\(task.id)")
+                }
+                
+                HStack {
+                    DatePicker("Goal Date", selection: $task.dueDate, displayedComponents: .date)
+                        .labelsHidden()
+                        .scaleEffect()
+                        .accessibilityIdentifier("TaskDatePicker")
+                    
+                    Text("Due: \(task.dueDate.formatted(date: .abbreviated, time: .omitted))")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .accessibilityIdentifier("TaskDateLabel")
+                }
+                .padding(.leading, 12)
+                
+                Picker("Priority", selection: $task.priority) {
+                    Text("Low").tag(Priority.low)
+                    Text("Medium").tag(Priority.medium)
+                    Text("High").tag(Priority.high)
+                }
+                .accessibilityIdentifier("PriorityPicker")
+                    
                 }
             }
             .onDelete { index in
@@ -49,4 +73,4 @@ struct TaskGroupDetailView: View {
             }
         }
     }
-}
+

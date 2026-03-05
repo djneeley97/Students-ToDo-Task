@@ -7,10 +7,18 @@
 
 import Foundation
 
+enum Priority: String, CaseIterable, Identifiable {
+    case low = "Low"
+    case medium = "Medium"
+    case high = "High"
+    var id: String { self.rawValue }
+}
+
 struct TaskItem: Identifiable, Hashable, Codable {
     var id = UUID()
     var title: String
     var isCompleted: Bool = false
+    var dueDate: Date = Date()
 }
 
 struct TaskGroup: Identifiable, Hashable, Codable {
